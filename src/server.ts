@@ -1,24 +1,16 @@
-import { fastifyCors } from "@fastify/cors"
-import { fastify } from "fastify"
-import {
-  serializerCompiler,
-  validatorCompiler,
-  type ZodTypeProvider,
-} from "fastify-type-provider-zod"
-import { env } from "./configs/env.ts"
-import { logger } from './configs/logger.ts'
+import { buildApp } from './app.ts'
+import { env } from './configs/env.ts'
+import { connectDatabase } from './configs/database.ts'
 
-const app = fastify({
-  logger,
-}).withTypeProvider<ZodTypeProvider>()
+const app = buildApp()
 
-app.setValidatorCompiler(validatorCompiler)
-app.setSerializerCompiler(serializerCompiler)
+async function start() {
+    await connectDatabase()
+    
+    app.listen({
+        port: env.PORT,
+        host: '0.0.0.0'
+    })
+}
 
-app.register(fastifyCors, {
-  origin: env.APP_ALLOWED_ORIGINS,
-})
-
-app.get("/health", () => "OK")
-
-app.listen({ port: env.PORT })
+start()
