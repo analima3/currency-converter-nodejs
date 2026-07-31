@@ -1,6 +1,6 @@
-import type { FastifyInstance } from 'fastify'
-import FastifyCors from '@fastify/cors'
-import { env } from '../configs/env.ts'
+import FastifyCors from "@fastify/cors"
+import type { FastifyInstance } from "fastify"
+import { env } from "../configs/env.ts"
 
 export async function corsPlugin(app: FastifyInstance) {
   await app.register(FastifyCors, {

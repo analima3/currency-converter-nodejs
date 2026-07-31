@@ -4,7 +4,9 @@ import { HttpStatus } from './http-status.ts';
 import { ErrorCode } from './error-codes.ts';
 import { AppError } from './app-error.ts';
 
-export function errorHandler(error: any, request: FastifyRequest, reply: FastifyReply) {
+export function errorHandler(error: unknown, request: FastifyRequest, reply: FastifyReply) {
+  console.log('passei pelo error handler');
+  
     if (error instanceof AppError) {
         return reply.status(error.statusCode).send({
             statusCode: error.statusCode,

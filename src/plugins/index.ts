@@ -1,11 +1,11 @@
-import type { FastifyInstance } from 'fastify'
+import type { FastifyPluginAsync } from "fastify"
 
-import { corsPlugin } from './cors.ts'
-import { zodPlugin } from './zod.ts'
-import { errorHandlerPlugin } from './error-handler.ts'
+import { corsPlugin } from "./cors.ts"
+import { errorHandlerPlugin } from "./error-handler.ts"
+import { zodPlugin } from "./zod.ts"
 
-export async function registerPlugins(app: FastifyInstance) {
-  await app.register(zodPlugin)
-  await app.register(corsPlugin)
-  await app.register(errorHandlerPlugin)
+export const registerPlugins: FastifyPluginAsync = async (app) => {
+  errorHandlerPlugin(app)
+  await corsPlugin(app)
+  await zodPlugin(app)
 }

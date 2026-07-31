@@ -18,8 +18,8 @@
   },
   "name": "currency-converter-nodejs",
   "scripts": {
-    "start": "node --env-file .env --experimental-strip-types src/server.ts",
-    "dev": "node --env-file .env --experimental-strip-types --watch src/server.ts",
+    "start": "node --env-file .env  src/server.ts",
+    "dev": "node --env-file .env --watch src/server.ts",
     "check": "ultracite check",
     "fix": "ultracite fix"
   },
