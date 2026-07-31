@@ -69,7 +69,7 @@ Entrada:
 Saída:
 
 {
-    "content": [{
+    "data": [{
         "id": "...",
         "amount": 100,
         "exchangeRate": 0.1825,
@@ -79,8 +79,9 @@ Saída:
         "createdAt": "2026-07-30T..."
     }],
     "currentPage": 1,
-    "nextPage": 2,
-    "totalElements": 100
+    "limit": 10,
+    "totalElements": 100,
+    "totalPages": 10
 }
 ```
 
