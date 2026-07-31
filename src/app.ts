@@ -1,5 +1,5 @@
 import Fastify from "fastify"
-import { fastifyCors } from "@fastify/cors"
+import cors from "@fastify/cors"
 import {
   serializerCompiler,
   validatorCompiler,
@@ -17,7 +17,7 @@ export const buildApp = () => {
     app.setValidatorCompiler(validatorCompiler)
     app.setSerializerCompiler(serializerCompiler)
 
-    app.register(fastifyCors, {
+    app.register(cors, {
       origin: env.APP_ALLOWED_ORIGINS,
     })
 
