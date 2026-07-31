@@ -1,0 +1,8 @@
+export const ErrorCode = {
+  EXTERNAL_API_ERROR: 'EXTERNAL_API_ERROR',
+  TRANSACTION_NOT_FOUND: 'TRANSACTION_NOT_FOUND',
+  VALIDATION_ERROR: 'VALIDATION_ERROR',
+  INTERNAL_SERVER_ERROR: 'INTERNAL_SERVER_ERROR',
+} as const
+
+export type ErrorCodeType = typeof ErrorCode[keyof typeof ErrorCode]

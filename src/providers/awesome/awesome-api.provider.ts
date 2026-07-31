@@ -1,4 +1,5 @@
 import { env } from "../../configs/env.ts";
+import { ExternalApiError } from "../../shared/errors/external-api-error.ts";
 import { AWESOME_API_URL } from "./awesome-api.constants.ts";
 import { AwesomeApiResponse, ExchangeRate } from "./awesome-api.types.ts";
 
@@ -11,7 +12,7 @@ export class AwesomeApiProvider {
         })
 
         if (!response.ok) {
-            throw new Error('Erro ao recuperar valor de câmbio')
+            throw new ExternalApiError()
         }
 
         const data = await response.json() as AwesomeApiResponse
