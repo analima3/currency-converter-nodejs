@@ -1,4 +1,4 @@
-import mongoose, { type InferSchemaType } from "mongoose";
+import mongoose, { type InferSchemaType } from "mongoose"
 
 export const TransactionSchema = new mongoose.Schema({
     amount: {
