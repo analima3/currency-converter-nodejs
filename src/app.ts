@@ -3,7 +3,7 @@ import { type ZodTypeProvider } from "fastify-type-provider-zod"
 
 import { logger } from './configs/logger.ts'
 
-import { registerPlugins } from "./plugins/index.ts"
+import { registerPlugins } from "./plugins/index.plugin.ts"
 
 export const buildApp = async () => {
     const app = Fastify({
