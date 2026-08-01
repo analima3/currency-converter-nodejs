@@ -37,6 +37,25 @@ export const TransactionSchema = new mongoose.Schema(
   }
 )
 
+TransactionSchema.set("toJSON", {
+  transform(_, ret) {
+    const { _id, ...rest } = ret
+    const converted = { ...rest } as Record<string, unknown>
+
+    if (_id !== undefined) {
+      converted.id = _id.toString()
+    }
+
+    const createdAt = converted.createdAt as Date | undefined
+
+    if (createdAt instanceof Date) {
+      converted.createdAt = createdAt.toISOString()
+    }
+
+    return converted
+  },
+})
+
 TransactionSchema.index({ createdAt: -1 })
 
 export const TransactionModel = mongoose.model("Transaction", TransactionSchema)
