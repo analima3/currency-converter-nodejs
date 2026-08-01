@@ -1,5 +1,5 @@
 import type { AwesomeApiProvider } from "../../../providers/awesome/awesome-api.provider.ts"
-import { TransactionNotFoundError } from "../../../shared/errors/transaction-not-found-error.ts"
+import { NotFoundError } from "../../../shared/errors/not-found-error.ts"
 import type { FilterOptions } from "../../../shared/types/filter.types.ts"
 import type {
   PaginationOptions,
@@ -39,7 +39,7 @@ export class TransactionService {
     const transaction = await this.repository.findById(id)
 
     if (!transaction) {
-      throw new TransactionNotFoundError()
+      throw new NotFoundError()
     }
 
     return transaction

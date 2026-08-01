@@ -13,7 +13,8 @@ const envSchema = z.object({
     .string()
     .min(1)
     .refine((v) => MONGO_URI_REGEX.test(v), {
-      message: "Invalid MONGO_URI",
+      message:
+        "URI do MongoDB inválida. Deve começar com 'mongodb://' ou 'mongodb+srv://'",
     }),
   DB_NAME: z.string().default(""),
   LOG_LEVEL: z
@@ -26,7 +27,9 @@ const envSchema = z.object({
 export const env = envSchema.parse(process.env)
 
 if (env.NODE_ENV === "production" && !env.AWESOME_API_KEY) {
-  throw new Error("AWESOME_API_KEY must be set in production")
+  throw new Error(
+    "A variável de ambiente 'AWESOME_API_KEY' é obrigatória em produção."
+  )
 }
 
 if (!env.LOG_LEVEL) {

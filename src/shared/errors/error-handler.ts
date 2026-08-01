@@ -12,6 +12,15 @@ export function errorHandler(error: unknown, reply: FastifyReply) {
     })
   }
 
+  if (error.code === "FST_ERR_VALIDATION") {
+    return reply.status(HttpStatus.BAD_REQUEST).send({
+      code: ErrorCode.VALIDATION_ERROR,
+      description: error.validation[0].message,
+      message: "Dados inválidos.",
+      statusCode: HttpStatus.BAD_REQUEST,
+    })
+  }
+
   return reply.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
     code: ErrorCode.INTERNAL_SERVER_ERROR,
     message: "Erro interno do servidor.",

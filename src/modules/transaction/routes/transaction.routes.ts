@@ -6,6 +6,7 @@ import {
   createTransactionBodySchema,
   createTransactionResponseSchema,
 } from "../schemas/create-transaction.schema.ts"
+import { getTransactionByIdParamsSchema } from "../schemas/get-transaction-by-id.schema.ts"
 import { TransactionService } from "../services/transaction.service.ts"
 
 interface TransactionRoutesOptions {
@@ -30,6 +31,16 @@ export function transactionRoutes(
       body: createTransactionBodySchema,
       response: {
         201: createTransactionResponseSchema,
+      },
+    },
+  })
+
+  app.get(`${prefix}/:id`, {
+    handler: controller.findById.bind(controller),
+    schema: {
+      params: getTransactionByIdParamsSchema,
+      response: {
+        200: createTransactionResponseSchema,
       },
     },
   })

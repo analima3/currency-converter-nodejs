@@ -11,6 +11,9 @@
     "rules": {
       "correctness": {
         "noUnusedImports": "warn"
+      },
+      "style": {
+        "useConsistentMemberAccessibility": "off"
       }
     }
   }
