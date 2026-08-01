@@ -7,7 +7,6 @@ import type {
 } from "../../../shared/types/pagination.types.ts"
 import type { Transaction } from "../models/transaction.model.ts"
 import type { TransactionRepository } from "../repositories/transaction.repository.ts"
-import type { CreateTransactionBody } from "../schemas/create-transaction.schema.ts"
 
 export class TransactionService {
   private readonly repository: TransactionRepository
@@ -18,15 +17,19 @@ export class TransactionService {
     this.provider = provider
   }
 
-  async create({ amount }: CreateTransactionBody): Promise<Transaction> {
+  async create(amount: number) {
     const { exchangeRate } = await this.provider.getExchangeRate()
 
-    const convertedAmount = amount * exchangeRate
+    const exchangeRateFormatted = Number(exchangeRate.toFixed(6))
+    const amountFormatted = Number(amount.toFixed(2))
+
+    const convertedAmount = amountFormatted * exchangeRateFormatted
+    const convertedAmountFormatted = Number(convertedAmount.toFixed(2))
 
     const createdTransaction: Transaction = await this.repository.create({
-      amount,
-      convertedAmount,
-      exchangeRate,
+      amount: amountFormatted,
+      convertedAmount: convertedAmountFormatted,
+      exchangeRate: exchangeRateFormatted,
     })
 
     return createdTransaction
@@ -39,7 +42,7 @@ export class TransactionService {
       throw new TransactionNotFoundError()
     }
 
-    return transaction.toJSON()
+    return transaction
   }
 
   async findMany(
@@ -49,10 +52,9 @@ export class TransactionService {
     const totalElements: number = await this.repository.count(filters)
     const totalPages = Math.ceil(totalElements / pagination.limit)
     const transactions = await this.repository.findMany(pagination, filters)
-    const data = transactions.map((transaction) => transaction.toJSON())
 
     return {
-      data,
+      data: transactions,
       pagination: {
         ...pagination,
         totalElements,

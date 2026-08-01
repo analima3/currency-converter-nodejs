@@ -9,33 +9,35 @@ import {
 const ONE = 1
 
 export class TransactionRepository {
-  create(
+  async create(
     transaction: Omit<
       Transaction,
       "_id" | "createdAt" | "currencyFrom" | "currencyTo"
     >
   ) {
-    return TransactionModel.create(transaction)
+    return (await TransactionModel.create(transaction)).toJSON()
   }
 
-  findById(id: string) {
-    return TransactionModel.findById(id)
+  async findById(id: string) {
+    return (await TransactionModel.findById(id))?.toJSON()
   }
 
-  findMany(pagination: PaginationOptions, filters?: FilterOptions) {
+  async findMany(pagination: PaginationOptions, filters?: FilterOptions) {
     const query = this.buildQuery(filters)
     const offset = (pagination.page - ONE) * pagination.limit
 
-    return TransactionModel.find(query)
+    const documents = await TransactionModel.find(query)
       .sort({ createdAt: -1 })
       .skip(offset)
       .limit(pagination.limit)
+
+    return documents.map((document) => document.toJSON())
   }
 
-  count(filters?: FilterOptions) {
+  async count(filters?: FilterOptions) {
     const query = this.buildQuery(filters)
 
-    return TransactionModel.countDocuments(query)
+    return await TransactionModel.countDocuments(query)
   }
 
   private buildQuery(filters?: FilterOptions) {
