@@ -1,25 +1,23 @@
-import { z } from 'zod'
+import { z } from "zod"
 
-import { transactionSchema } from './transaction.schema.ts'
+import { transactionSchema } from "./transaction.schema.ts"
 
 export const listTransactionsQuerySchema = z.object({
-  page: z.coerce.number().int().positive().default(1),
+  endDate: z.iso.datetime().optional(),
   limit: z.coerce.number().int().positive().max(100).default(10),
+  page: z.coerce.number().int().positive().default(1),
   startDate: z.iso.datetime().optional(),
-  endDate: z.iso.datetime().optional()
 })
 
 export const listTransactionsResponseSchema = z.object({
   data: z.array(transactionSchema),
-  currentPage: z.number(),
   limit: z.number(),
+  page: z.number(),
   totalElements: z.number(),
   totalPages: z.number(),
 })
 
-export type ListTransactionsQuery = z.infer<
-  typeof listTransactionsQuerySchema
->
+export type ListTransactionsQuery = z.infer<typeof listTransactionsQuerySchema>
 
 export type ListTransactionsResponse = z.infer<
   typeof listTransactionsResponseSchema

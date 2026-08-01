@@ -1,43 +1,44 @@
 import mongoose, { type InferSchemaType } from "mongoose"
 
-export const TransactionSchema = new mongoose.Schema({
+export const TransactionSchema = new mongoose.Schema(
+  {
     amount: {
-        type: Number,
-        required: true
-    },
-    exchangeRate: {
-        type: Number,
-        required: true
+      required: true,
+      type: Number,
     },
     convertedAmount: {
-        type: Number,
-        required: true
-    },
-    currencyFrom: {
-        type: String,
-        enum: ["BRL"],
-        immutable: true
-    },
-    currencyTo: {
-        type: String,
-        enum: ["USD"],
-        immutable: true
+      required: true,
+      type: Number,
     },
     createdAt: {
-        type: Date,
-        default: Date.now,
-        immutable: true
-    }
-},
-{
-    versionKey: false
-})
+      default: Date.now,
+      immutable: true,
+      type: Date,
+    },
+    currencyFrom: {
+      default: "BRL",
+      enum: ["BRL"],
+      immutable: true,
+      type: String,
+    },
+    currencyTo: {
+      default: "USD",
+      enum: ["USD"],
+      immutable: true,
+      type: String,
+    },
+    exchangeRate: {
+      required: true,
+      type: Number,
+    },
+  },
+  {
+    versionKey: false,
+  }
+)
 
 TransactionSchema.index({ createdAt: -1 })
 
-export const TransactionModel = mongoose.model(
-    'Transaction',
-    TransactionSchema
-)
+export const TransactionModel = mongoose.model("Transaction", TransactionSchema)
 
 export type Transaction = InferSchemaType<typeof TransactionSchema>

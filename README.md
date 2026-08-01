@@ -78,7 +78,7 @@ Saída:
         "currencyTo": "USD",
         "createdAt": "2026-07-30T..."
     }],
-    "currentPage": 1,
+    "page": 1,
     "limit": 10,
     "totalElements": 100,
     "totalPages": 10
