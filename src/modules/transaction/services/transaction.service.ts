@@ -51,6 +51,7 @@ export class TransactionService {
   ): Promise<PaginationResponse<Transaction>> {
     const totalElements: number = await this.repository.count(filters)
     const totalPages = Math.ceil(totalElements / pagination.limit)
+
     const transactions = await this.repository.findMany(pagination, filters)
 
     return {

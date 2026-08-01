@@ -7,6 +7,7 @@ import {
   createTransactionResponseSchema,
 } from "../schemas/create-transaction.schema.ts"
 import { getTransactionByIdParamsSchema } from "../schemas/get-transaction-by-id.schema.ts"
+import { listTransactionsQuerySchema } from "../schemas/list-transaction.schema.ts"
 import { TransactionService } from "../services/transaction.service.ts"
 
 interface TransactionRoutesOptions {
@@ -42,6 +43,13 @@ export function transactionRoutes(
       response: {
         200: createTransactionResponseSchema,
       },
+    },
+  })
+
+  app.get(`${prefix}`, {
+    handler: controller.findMany.bind(controller),
+    schema: {
+      querystring: listTransactionsQuerySchema,
     },
   })
 }

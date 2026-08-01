@@ -1,4 +1,4 @@
 export interface FilterOptions {
-    startDate: Date
-    endDate: Date
+  endDate?: Date
+  startDate?: Date
 }

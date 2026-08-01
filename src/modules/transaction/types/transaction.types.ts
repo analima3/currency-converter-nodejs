@@ -8,3 +8,12 @@ export interface CreateTransactionRequest {
 export interface GetByIDTransactionRequest {
   Params: GetTransactionByIdParams
 }
+
+export interface GetManyTransactionRequest {
+  Querystring: {
+    page: number
+    limit: number
+    startDate?: Date
+    endDate?: Date
+  }
+}

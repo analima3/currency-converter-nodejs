@@ -43,10 +43,15 @@ export class TransactionRepository {
   private buildQuery(filters?: FilterOptions) {
     const query: QueryFilter<Transaction> = {}
 
-    if (filters?.startDate) {
-      query.createdAt = {
-        $gte: filters.startDate,
-        $lte: filters.endDate,
+    if (filters?.startDate || filters?.endDate) {
+      query.createdAt = {}
+
+      if (filters.startDate) {
+        query.createdAt.$gte = filters.startDate
+      }
+
+      if (filters.endDate) {
+        query.createdAt.$lte = filters.endDate
       }
     }
 
