@@ -34,10 +34,10 @@ export class TransactionRepository {
     return documents.map((document) => document.toJSON())
   }
 
-  async count(filters?: FilterOptions) {
+  count(filters?: FilterOptions) {
     const query = this.buildQuery(filters)
 
-    return await TransactionModel.countDocuments(query)
+    return TransactionModel.countDocuments(query)
   }
 
   private buildQuery(filters?: FilterOptions) {

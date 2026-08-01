@@ -10,4 +10,4 @@ export const transactionSchema = z.object({
   id: z.string(),
 })
 
-export type TransactionResponse = z.infer<typeof transactionSchema>
+export type TransactionResponseSchema = z.infer<typeof transactionSchema>

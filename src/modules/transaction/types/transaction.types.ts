@@ -1,8 +1,12 @@
-import type { CreateTransactionBody } from "../schemas/create-transaction.schema.ts"
+import type { CreateTransactionBodySchema } from "../schemas/create-transaction.schema.ts"
 import type { GetTransactionByIdParams } from "../schemas/get-transaction-by-id.schema.ts"
 
+export interface CreateTransactionInput extends CreateTransactionBodySchema {
+  amount: number
+}
+
 export interface CreateTransactionRequest {
-  Body: CreateTransactionBody
+  Body: CreateTransactionBodySchema
 }
 
 export interface GetByIDTransactionRequest {

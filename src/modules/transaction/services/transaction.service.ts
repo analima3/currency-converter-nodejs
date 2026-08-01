@@ -7,6 +7,7 @@ import type {
 } from "../../../shared/types/pagination.types.ts"
 import type { Transaction } from "../models/transaction.model.ts"
 import type { TransactionRepository } from "../repositories/transaction.repository.ts"
+import type { CreateTransactionInput } from "../types/transaction.types.ts"
 
 export class TransactionService {
   private readonly repository: TransactionRepository
@@ -17,11 +18,11 @@ export class TransactionService {
     this.provider = provider
   }
 
-  async create(amount: number) {
+  async create(input: CreateTransactionInput): Promise<Transaction> {
     const { exchangeRate } = await this.provider.getExchangeRate()
 
     const exchangeRateFormatted = Number(exchangeRate.toFixed(6))
-    const amountFormatted = Number(amount.toFixed(2))
+    const amountFormatted = Number(input.amount.toFixed(2))
 
     const convertedAmount = amountFormatted * exchangeRateFormatted
     const convertedAmountFormatted = Number(convertedAmount.toFixed(2))

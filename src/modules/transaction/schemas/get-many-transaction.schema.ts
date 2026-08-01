@@ -40,8 +40,10 @@ export const listTransactionsResponseSchema = z.object({
   totalPages: z.number(),
 })
 
-export type ListTransactionsQuery = z.infer<typeof listTransactionsQuerySchema>
+export type ListTransactionsQuerySchema = z.infer<
+  typeof listTransactionsQuerySchema
+>
 
-export type ListTransactionsResponse = z.infer<
+export type ListTransactionsResponseSchema = z.infer<
   typeof listTransactionsResponseSchema
 >

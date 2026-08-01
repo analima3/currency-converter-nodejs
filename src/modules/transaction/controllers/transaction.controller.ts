@@ -17,8 +17,7 @@ export class TransactionController {
     request: FastifyRequest<CreateTransactionRequest>,
     reply: FastifyReply
   ) {
-    const { amount } = request.body
-    const transaction = await this.service.create(amount)
+    const transaction = await this.service.create(request.body)
 
     reply.status(201).send(transaction)
   }

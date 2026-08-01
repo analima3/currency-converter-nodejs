@@ -1,6 +1,6 @@
-import { z } from 'zod'
+import { z } from "zod"
 
-import { transactionSchema } from './transaction.schema.ts'
+import { transactionSchema } from "./transaction.schema.ts"
 
 export const createTransactionBodySchema = z.object({
   amount: z.number().positive(),
@@ -8,10 +8,10 @@ export const createTransactionBodySchema = z.object({
 
 export const createTransactionResponseSchema = transactionSchema
 
-export type CreateTransactionBody = z.infer<
+export type CreateTransactionBodySchema = z.infer<
   typeof createTransactionBodySchema
 >
 
-export type CreateTransactionResponse = z.infer<
+export type CreateTransactionResponseSchema = z.infer<
   typeof createTransactionResponseSchema
 >
