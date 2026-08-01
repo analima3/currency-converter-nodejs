@@ -1,20 +1,4 @@
 services:
-  api:
-    build: .
-    container_name: api
-    env_file:
-      - .env
-    environment:
-      - DB_MONGO_URI=mongodb://mongo:27017/converter-db
-      - NODE_ENV=production
-    ports:
-      - "3001:3001"
-    volumes:
-      - .:/app
-      - /app/node_modules
-    depends_on:
-      - mongo
-
   mongo:
     image: mongo:8
     container_name: mongo
