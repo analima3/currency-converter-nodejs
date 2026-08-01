@@ -5,7 +5,7 @@ services:
     env_file:
       - .env
     environment:
-      - DB_MONGO_URI=mongodb://mongo:27017/transactions
+      - DB_MONGO_URI=mongodb://mongo:27017/converter-db
       - NODE_ENV=production
     ports:
       - "3001:3001"
