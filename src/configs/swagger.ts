@@ -1,8 +1,8 @@
 export const swaggerConfig = {
   openapi: {
     info: {
-      description: "Currency converter API",
-      title: "Currency Converter API",
+      description: "API de conversão de moedas",
+      title: "API de Conversão de Moedas",
       version: "1.0.0",
     },
   },

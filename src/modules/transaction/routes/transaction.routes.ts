@@ -31,28 +31,28 @@ export function transactionRoutes(
     schema: {
       body: createTransactionBodySchema,
       description:
-        "Creates a new currency conversion transaction using the current exchange rate.",
+        "Cria uma nova transação de conversão de moeda usando a cotação atual.",
 
       response: {
         201: createTransactionResponseSchema,
       },
-      summary: "Create transaction",
-      tags: ["Transactions"],
+      summary: "Criar transação",
+      tags: ["Transações"],
     },
   })
 
   app.get(`${prefix}/:id`, {
     handler: controller.findById.bind(controller),
     schema: {
-      description: "Returns a transaction by its identifier.",
+      description: "Retorna uma transação pelo seu identificador.",
 
       params: getTransactionByIdParamsSchema,
 
       response: {
         200: createTransactionResponseSchema,
       },
-      summary: "Find transaction by id",
-      tags: ["Transactions"],
+      summary: "Buscar transação por ID",
+      tags: ["Transações"],
     },
   })
 
@@ -60,15 +60,15 @@ export function transactionRoutes(
     handler: controller.findMany.bind(controller),
     schema: {
       description:
-        "Returns a paginated list of transactions. It is possible to filter by creation date.",
+        "Retorna uma lista paginada de transações. É possível filtrar por data de criação.",
 
       querystring: listTransactionsQuerySchema,
 
       response: {
         200: listTransactionsResponseSchema,
       },
-      summary: "List transactions",
-      tags: ["Transactions"],
+      summary: "Listar transações",
+      tags: ["Transações"],
     },
   })
 }
