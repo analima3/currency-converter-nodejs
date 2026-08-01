@@ -34,10 +34,12 @@ export const listTransactionsQuerySchema = z
 
 export const listTransactionsResponseSchema = z.object({
   data: z.array(transactionSchema),
-  limit: z.number(),
-  page: z.number(),
-  totalElements: z.number(),
-  totalPages: z.number(),
+  pagination: z.object({
+    limit: z.number(),
+    page: z.number(),
+    totalElements: z.number(),
+    totalPages: z.number(),
+  }),
 })
 
 export type ListTransactionsQuerySchema = z.infer<

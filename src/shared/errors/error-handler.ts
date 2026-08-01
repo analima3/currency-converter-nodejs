@@ -2,6 +2,7 @@ import type { FastifyReply } from "fastify"
 import { AppError } from "./app-error.ts"
 import { ErrorCode } from "./error-codes.ts"
 import { HttpStatus } from "./http-status.ts"
+import { isValidationError } from "./validation-error.ts"
 
 export function errorHandler(error: unknown, reply: FastifyReply) {
   if (error instanceof AppError) {
@@ -12,7 +13,7 @@ export function errorHandler(error: unknown, reply: FastifyReply) {
     })
   }
 
-  if (error.code === "FST_ERR_VALIDATION") {
+  if (isValidationError(error)) {
     return reply.status(HttpStatus.BAD_REQUEST).send({
       code: ErrorCode.VALIDATION_ERROR,
       description: error.validation[0].message,

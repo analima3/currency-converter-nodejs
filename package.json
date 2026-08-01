@@ -22,6 +22,7 @@
   "scripts": {
     "start": "node --env-file .env  src/server.ts",
     "dev": "node --env-file .env --watch src/server.ts",
+    "build": "tsc",
     "check": "ultracite check",
     "fix": "ultracite fix"
   },

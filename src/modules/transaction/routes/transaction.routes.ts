@@ -32,7 +32,6 @@ export function transactionRoutes(
       body: createTransactionBodySchema,
       description:
         "Cria uma nova transação de conversão de moeda usando a cotação atual.",
-
       response: {
         201: createTransactionResponseSchema,
       },
@@ -45,9 +44,7 @@ export function transactionRoutes(
     handler: controller.findById.bind(controller),
     schema: {
       description: "Retorna uma transação pelo seu identificador.",
-
       params: getTransactionByIdParamsSchema,
-
       response: {
         200: createTransactionResponseSchema,
       },
@@ -61,9 +58,7 @@ export function transactionRoutes(
     schema: {
       description:
         "Retorna uma lista paginada de transações. É possível filtrar por data de criação.",
-
       querystring: listTransactionsQuerySchema,
-
       response: {
         200: listTransactionsResponseSchema,
       },
