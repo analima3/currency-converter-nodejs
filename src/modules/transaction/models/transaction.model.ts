@@ -1,4 +1,5 @@
 import mongoose, { type InferSchemaType } from "mongoose"
+import { CurrencyCode } from "../../../shared/utils/constants/currency-code.constants.ts"
 
 export const TransactionSchema = new mongoose.Schema(
   {
@@ -16,14 +17,14 @@ export const TransactionSchema = new mongoose.Schema(
       type: Date,
     },
     currencyFrom: {
-      default: "BRL",
-      enum: ["BRL"],
+      default: CurrencyCode.BRL,
+      enum: [CurrencyCode.BRL],
       immutable: true,
       type: String,
     },
     currencyTo: {
-      default: "USD",
-      enum: ["USD"],
+      default: CurrencyCode.USD,
+      enum: [CurrencyCode.USD],
       immutable: true,
       type: String,
     },
