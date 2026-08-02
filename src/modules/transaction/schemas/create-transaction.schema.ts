@@ -4,10 +4,10 @@ import { transactionSchema } from "./transaction.schema.ts"
 
 export const createTransactionBodySchema = z.object({
   amount: z.number().positive(),
-  from: z.enum(currencyCodeEnumToArray as [string, ...string[]], {
+  from: z.enum(currencyCodeEnumToArray, {
     error: `Moeda inválida. Valores aceitos: ${currencyCodeEnumToArray.join(", ")}`,
   }),
-  to: z.enum(currencyCodeEnumToArray as [string, ...string[]], {
+  to: z.enum(currencyCodeEnumToArray, {
     error: `Moeda inválida. Valores aceitos: ${currencyCodeEnumToArray.join(", ")}`,
   }),
 })

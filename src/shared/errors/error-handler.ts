@@ -19,7 +19,7 @@ export function errorHandler(
   reply: FastifyReply
 ) {
   if (error instanceof AppError) {
-    logger.warn({
+    logger.error({
       message: error.message,
       method: request.method,
       url: request.url,
@@ -33,7 +33,7 @@ export function errorHandler(
   }
 
   if (isValidationError(error)) {
-    logger.warn({
+    logger.error({
       message: error.validation[0].message,
       method: request.method,
       url: request.url,
