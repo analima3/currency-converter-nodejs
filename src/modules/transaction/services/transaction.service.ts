@@ -5,11 +5,14 @@ import type {
   PaginationOptions,
   PaginationResponse,
 } from "../../../shared/types/pagination.types.ts"
+import type { CurrencyCode } from "../../../shared/utils/constants/currency-code.constants.ts"
 import type { Transaction } from "../models/transaction.model.ts"
 import type { TransactionRepository } from "../repositories/transaction.repository.ts"
 
 interface CreateTransactionInput {
   amount: number
+  from: CurrencyCode
+  to: CurrencyCode
 }
 
 export class TransactionService {
@@ -22,7 +25,10 @@ export class TransactionService {
   }
 
   async create(input: CreateTransactionInput): Promise<Transaction> {
-    const { exchangeRate } = await this.provider.getExchangeRate()
+    const { exchangeRate } = await this.provider.getExchangeRateByCurrency({
+      from: input.from,
+      to: input.to,
+    })
 
     const exchangeRateFormatted = Number(exchangeRate.toFixed(6))
     const amountFormatted = Number(input.amount.toFixed(2))

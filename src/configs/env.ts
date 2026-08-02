@@ -8,7 +8,8 @@ const envSchema = z.object({
     .default("http://localhost:3000")
     .transform((val) => val.split(",").map((url) => url.trim()))
     .pipe(z.array(z.string())),
-  AWESOME_API_KEY: z.string().optional(),
+  AWESOME_API_KEY: z.string("A API key é obrigatória."),
+  AWESOME_API_URL: z.url("URL da API Awesome inválida."),
   DB_MONGO_URI: z
     .string()
     .min(1)
