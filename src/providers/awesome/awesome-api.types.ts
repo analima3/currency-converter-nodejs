@@ -5,5 +5,5 @@ export interface AwesomeApiResponse {
 }
 
 export interface ExchangeRate {
-    exchangeRate: number;
+  exchangeRate: number
 }

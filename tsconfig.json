@@ -15,7 +15,7 @@
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "moduleResolution": "node16",
+    "moduleResolution": "nodenext",
     "noEmit": true,
     "allowImportingTsExtensions": true
   }
