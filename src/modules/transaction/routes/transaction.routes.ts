@@ -26,7 +26,7 @@ export function transactionRoutes(
   const service = new TransactionService(repository, provider)
   const controller = new TransactionController(service)
 
-  app.post(`${prefix}/create`, {
+  app.post(`${prefix}`, {
     handler: controller.create.bind(controller),
     schema: {
       body: createTransactionBodySchema,

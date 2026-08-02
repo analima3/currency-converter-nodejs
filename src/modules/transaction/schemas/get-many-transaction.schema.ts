@@ -42,10 +42,8 @@ export const listTransactionsResponseSchema = z.object({
   }),
 })
 
-export type ListTransactionsQuerySchema = z.infer<
-  typeof listTransactionsQuerySchema
->
+export type ListTransactionsQuery = z.infer<typeof listTransactionsQuerySchema>
 
-export type ListTransactionsResponseSchema = z.infer<
+export type ListTransactionsResponse = z.infer<
   typeof listTransactionsResponseSchema
 >

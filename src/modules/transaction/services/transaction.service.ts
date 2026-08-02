@@ -7,7 +7,10 @@ import type {
 } from "../../../shared/types/pagination.types.ts"
 import type { Transaction } from "../models/transaction.model.ts"
 import type { TransactionRepository } from "../repositories/transaction.repository.ts"
-import type { CreateTransactionInput } from "../types/transaction.types.ts"
+
+interface CreateTransactionInput {
+  amount: number
+}
 
 export class TransactionService {
   private readonly repository: TransactionRepository

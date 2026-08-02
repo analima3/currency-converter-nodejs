@@ -1,10 +1,8 @@
 import type { FastifyReply, FastifyRequest } from "fastify"
+import type { CreateTransactionBody } from "../schemas/create-transaction.schema.ts"
+import type { ListTransactionsQuery } from "../schemas/get-many-transaction.schema.ts"
+import type { GetTransactionByIdParams } from "../schemas/get-transaction-by-id.schema.ts"
 import type { TransactionService } from "../services/transaction.service.ts"
-import type {
-  CreateTransactionRequest,
-  GetByIDTransactionRequest,
-  GetManyTransactionRequest,
-} from "../types/transaction.types.ts"
 
 export class TransactionController {
   private readonly service: TransactionService
@@ -14,7 +12,7 @@ export class TransactionController {
   }
 
   async create(
-    request: FastifyRequest<CreateTransactionRequest>,
+    request: FastifyRequest<{ Body: CreateTransactionBody }>,
     reply: FastifyReply
   ) {
     const transaction = await this.service.create(request.body)
@@ -23,7 +21,7 @@ export class TransactionController {
   }
 
   async findById(
-    request: FastifyRequest<GetByIDTransactionRequest>,
+    request: FastifyRequest<{ Params: GetTransactionByIdParams }>,
     reply: FastifyReply
   ) {
     const { id } = request.params
@@ -34,7 +32,7 @@ export class TransactionController {
   }
 
   async findMany(
-    request: FastifyRequest<GetManyTransactionRequest>,
+    request: FastifyRequest<{ Querystring: ListTransactionsQuery }>,
     reply: FastifyReply
   ) {
     const { page, limit, startDate, endDate } = request.query

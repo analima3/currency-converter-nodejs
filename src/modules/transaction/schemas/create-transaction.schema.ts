@@ -8,10 +8,8 @@ export const createTransactionBodySchema = z.object({
 
 export const createTransactionResponseSchema = transactionSchema
 
-export type CreateTransactionBodySchema = z.infer<
-  typeof createTransactionBodySchema
->
+export type CreateTransactionBody = z.infer<typeof createTransactionBodySchema>
 
-export type CreateTransactionResponseSchema = z.infer<
+export type CreateTransactionResponse = z.infer<
   typeof createTransactionResponseSchema
 >
