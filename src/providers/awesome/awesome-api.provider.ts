@@ -4,10 +4,10 @@ import { ExternalApiForbiddenError } from "../../shared/errors/external-api-forb
 import { ExternalApiNotFoundError } from "../../shared/errors/external-api-not-found-error.ts"
 import { ExternalApiUnavailableError } from "../../shared/errors/external-api-unavailable-error.ts"
 import type {
-  AwesomeApiRequest,
-  AwesomeApiResponse,
-  ExchangeRate,
-} from "./awesome-api.types.ts"
+  ExchangeRateProvider,
+  GetExchangeRateParams,
+} from "../exchange-rate/exchange-rate.provider.ts"
+import type { AwesomeApiResponse, ExchangeRate } from "./awesome-api.types.ts"
 
 const statusErrorFactory = new Map<number, () => Error>([
   [403, () => new ExternalApiForbiddenError()],
@@ -16,10 +16,8 @@ const statusErrorFactory = new Map<number, () => Error>([
   [502, () => new ExternalApiError()],
 ])
 
-export class AwesomeApiProvider {
-  async getExchangeRateByCurrency(
-    params: AwesomeApiRequest
-  ): Promise<ExchangeRate> {
+export class AwesomeApiProvider implements ExchangeRateProvider {
+  async getExchangeRate(params: GetExchangeRateParams): Promise<ExchangeRate> {
     const URL = `${env.AWESOME_API_URL}/last/${params.from}-${params.to}`
 
     const response = await fetch(URL, {
@@ -38,8 +36,17 @@ export class AwesomeApiProvider {
 
     const data = (await response.json()) as AwesomeApiResponse
 
+    return this.mapResponse(data, params)
+  }
+
+  private mapResponse(
+    response: AwesomeApiResponse,
+    params: GetExchangeRateParams
+  ): ExchangeRate {
+    const currency = response[`${params.from}${params.to}`]
+
     return {
-      exchangeRate: Number(data?.[`${params.from}${params.to}`].bid),
+      exchangeRate: Number(currency.bid),
     }
   }
 }

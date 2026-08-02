@@ -1,4 +1,4 @@
-import type { AwesomeApiProvider } from "../../../providers/awesome/awesome-api.provider.ts"
+import type { ExchangeRateProvider } from "../../../providers/exchange-rate/exchange-rate.provider.ts"
 import { NotFoundError } from "../../../shared/errors/not-found-error.ts"
 import type { FilterOptions } from "../../../shared/types/filter.types.ts"
 import type {
@@ -17,15 +17,18 @@ interface CreateTransactionInput {
 
 export class TransactionService {
   private readonly repository: TransactionRepository
-  private readonly provider: AwesomeApiProvider
+  private readonly provider: ExchangeRateProvider
 
-  constructor(repository: TransactionRepository, provider: AwesomeApiProvider) {
+  constructor(
+    repository: TransactionRepository,
+    provider: ExchangeRateProvider
+  ) {
     this.repository = repository
     this.provider = provider
   }
 
   async create(input: CreateTransactionInput): Promise<Transaction> {
-    const { exchangeRate } = await this.provider.getExchangeRateByCurrency({
+    const { exchangeRate } = await this.provider.getExchangeRate({
       from: input.from,
       to: input.to,
     })
