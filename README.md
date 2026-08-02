@@ -34,40 +34,57 @@ Essa separação reduz o acoplamento entre as camadas e facilita futuras substit
 | **Jest** | Framework utilizado para testes automatizados da aplicação. |
 
 
-## Executando a aplicação
+## Como executar
 
-### 1. Clone o repositório
+### Pré-requisitos
+
+Antes de iniciar a aplicação, certifique-se de que possui instalado:
+
+- Node.js 22 ou superior
+- Docker e Docker Compose
+
+### Variáveis de ambiente
+
+Crie um arquivo `.env` na raiz do projeto utilizando o `.env.example` como referência.
+
+---
+
+## Executando com Docker
+
+Para iniciar toda a aplicação (API e MongoDB), execute:
 
 ```bash
-git clone https://github.com/analima3/currency-converter-nodejs.git
-cd currency-converter-nodejs
+docker compose up --build
 ```
 
-### 2. Instale as dependências
+Após a inicialização, a API estará disponível em:
+
+- API: http://localhost:3001
+- Swagger: http://localhost:3001/docs
+
+Para encerrar os containers:
+
+```bash
+docker compose down
+```
+
+---
+
+## Desenvolvimento local
+
+Caso prefira executar apenas o MongoDB em um container e desenvolver a API localmente, inicie somente o banco de dados:
+
+```bash
+docker compose up -d mongodb
+```
+
+Instale as dependências:
 
 ```bash
 npm install
 ```
 
-### 3. Configure as variáveis de ambiente
-
-Crie um arquivo `.env` na raiz do projeto utilizando o `.env.example` como referência.
-
-### 4. Inicie o MongoDB com Docker
-
-A aplicação utiliza o MongoDB para persistência dos dados. Para iniciar o banco de dados, execute:
-
-```bash
-docker compose up -d
-```
-
-Verifique se o container está em execução:
-
-```bash
-docker ps
-```
-
-### 5. Inicie a aplicação
+Inicie a aplicação:
 
 ```bash
 npm run dev
@@ -75,22 +92,13 @@ npm run dev
 
 A API estará disponível em:
 
-```
-http://localhost:3001
-```
+- API: http://localhost:3001
+- Swagger: http://localhost:3001/docs
 
-A documentação interativa (Swagger) pode ser acessada em:
-
-```
-http://localhost:3001/docs
-```
-
-### Encerrando o ambiente
-
-Para parar o MongoDB:
+Para parar apenas o MongoDB:
 
 ```bash
-docker compose down
+docker compose stop mongodb
 ```
 
 
