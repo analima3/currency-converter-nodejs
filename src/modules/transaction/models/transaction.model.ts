@@ -1,5 +1,5 @@
 import mongoose, { type InferSchemaType } from "mongoose"
-import { CurrencyCode } from "../../../shared/utils/constants/currency-code.constants.ts"
+import { CurrencyCode } from "../../../shared/utils/constants/index.ts"
 
 export const TransactionSchema = new mongoose.Schema(
   {
