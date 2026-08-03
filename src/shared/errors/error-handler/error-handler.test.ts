@@ -3,8 +3,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
 
 import { logger } from "../../../configs/logger.ts"
 import { errorHandlerPlugin } from "../../../plugins/error-handler.ts"
-import { ErrorCode } from "../../utils/constants/error-codes.constants.ts"
-import { HttpStatus } from "../../utils/constants/http-status.constants.ts"
+import { ErrorCode, HttpStatus } from "../../utils/constants/index.ts"
 import { AppError } from "../app-error/app-error.ts"
 import { errorHandler } from "./error-handler.ts"
 
