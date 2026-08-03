@@ -1,5 +1,5 @@
 import type { AppErrorOptions } from "../../types/errors.types.ts"
-import type { ErrorCodeType } from "../../utils/constants/error-codes.constants.ts"
+import type { ErrorCodeType } from "../../utils/constants/index.ts"
 
 export class AppError extends Error {
   public readonly statusCode: number
