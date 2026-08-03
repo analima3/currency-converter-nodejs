@@ -6,16 +6,16 @@ export const logger = pino({
   level: env.LOG_LEVEL,
 
   transport:
-    env.NODE_ENV !== "production"
-      ? {
-          target: "pino-pretty",
+    env.NODE_ENV === "production"
+      ? undefined
+      : {
           options: {
             colorize: true,
-            translateTime: "HH:MM:ss",
+            errorLikeObjectKeys: ["err"],
             ignore: "pid,hostname",
             singleLine: true,
-            errorLikeObjectKeys: ["err"],
+            translateTime: "HH:MM:ss",
           },
-        }
-      : undefined,
+          target: "pino-pretty",
+        },
 })

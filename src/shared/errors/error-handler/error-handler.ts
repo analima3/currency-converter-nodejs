@@ -1,10 +1,10 @@
 import type { FastifyReply, FastifyRequest } from "fastify"
 
-import { logger } from "../../configs/logger.ts"
-import { AppError } from "./app-error.ts"
-import { ErrorCode } from "./error-codes.ts"
-import { HttpStatus } from "./http-status.ts"
-import { isValidationError } from "./validation-error.ts"
+import { logger } from "../../../configs/logger.ts"
+import { ErrorCode } from "../../utils/constants/error-codes.constants.ts"
+import { HttpStatus } from "../../utils/constants/http-status.constants.ts"
+import { AppError } from "../app-error/app-error.ts"
+import { isValidationError } from "../error-validation/validation-error.ts"
 
 function getApplicationStack(error: Error) {
   return error.stack

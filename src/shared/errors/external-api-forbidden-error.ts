@@ -1,6 +1,6 @@
-import { AppError } from "./app-error.ts"
-import { ErrorCode } from "./error-codes.ts"
-import { HttpStatus } from "./http-status.ts"
+import { ErrorCode } from "../utils/constants/error-codes.constants.ts"
+import { HttpStatus } from "../utils/constants/http-status.constants.ts"
+import { AppError } from "./app-error/app-error.ts"
 
 export class ExternalApiForbiddenError extends AppError {
   constructor() {
