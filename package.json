@@ -1,4 +1,22 @@
 {
+  "name": "currency-converter-nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "check": "ultracite check",
+    "coverage": "vitest run --coverage",
+    "dev": "node --env-file .env --watch src/server.ts",
+    "fix": "ultracite fix",
+    "start": "node --env-file .env  src/server.ts",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
   "dependencies": {
     "@fastify/cors": "^11.3.0",
     "@fastify/swagger": "^9.8.1",
@@ -16,21 +34,7 @@
     "@biomejs/biome": "^2.5.3",
     "@types/node": "^26.1.2",
     "typescript": "^7.0.2",
-    "ultracite": "^7.9.4"
-  },
-  "name": "currency-converter-nodejs",
-  "scripts": {
-    "start": "node --env-file .env  src/server.ts",
-    "dev": "node --env-file .env --watch src/server.ts",
-    "build": "tsc",
-    "check": "ultracite check",
-    "fix": "ultracite fix"
-  },
-  "type": "module",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+    "ultracite": "^7.9.4",
+    "vitest": "^4.1.10"
+  }
 }
