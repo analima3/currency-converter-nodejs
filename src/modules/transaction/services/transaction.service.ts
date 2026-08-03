@@ -1,11 +1,11 @@
 import type { ExchangeRateProvider } from "../../../providers/exchange-rate/exchange-rate.provider.ts"
-import { NotFoundError } from "../../../shared/errors/not-found-error.ts"
+import { NotFoundError } from "../../../shared/errors/exceptions/index.ts"
 import type { FilterOptions } from "../../../shared/types/filter.types.ts"
 import type {
   PaginationOptions,
   PaginationResponse,
 } from "../../../shared/types/pagination.types.ts"
-import type { CurrencyCode } from "../../../shared/utils/constants/currency-code.constants.ts"
+import type { CurrencyCode } from "../../../shared/utils/constants/index.ts"
 import type { Transaction } from "../models/transaction.model.ts"
 import type { TransactionRepository } from "../repositories/transaction.repository.ts"
 
