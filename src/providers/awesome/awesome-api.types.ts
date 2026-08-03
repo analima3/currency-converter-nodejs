@@ -1,4 +1,4 @@
-import type { CurrencyCode } from "../../shared/utils/constants/currency-code.constants.ts"
+import type { CurrencyCode } from "../../shared/utils/constants/index.ts"
 
 export interface AwesomeApiRequest {
   from: CurrencyCode

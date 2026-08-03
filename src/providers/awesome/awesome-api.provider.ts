@@ -1,20 +1,12 @@
 import { env } from "../../configs/env.ts"
-import { ExternalApiError } from "../../shared/errors/external-api-error.ts"
-import { ExternalApiForbiddenError } from "../../shared/errors/external-api-forbidden-error.ts"
-import { ExternalApiNotFoundError } from "../../shared/errors/external-api-not-found-error.ts"
-import { ExternalApiUnavailableError } from "../../shared/errors/external-api-unavailable-error.ts"
+import {
+  statusErrorFactory,
+} from "../../shared/errors/exceptions/index.ts"
 import type {
   ExchangeRateProvider,
   GetExchangeRateParams,
 } from "../exchange-rate/exchange-rate.provider.ts"
 import type { AwesomeApiResponse, ExchangeRate } from "./awesome-api.types.ts"
-
-const statusErrorFactory = new Map<number, () => Error>([
-  [403, () => new ExternalApiForbiddenError()],
-  [404, () => new ExternalApiNotFoundError()],
-  [503, () => new ExternalApiUnavailableError()],
-  [502, () => new ExternalApiError()],
-])
 
 export class AwesomeApiProvider implements ExchangeRateProvider {
   async getExchangeRate(params: GetExchangeRateParams): Promise<ExchangeRate> {
