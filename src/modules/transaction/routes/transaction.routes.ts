@@ -5,12 +5,12 @@ import { TransactionRepository } from "../repositories/transaction.repository.ts
 import {
   createTransactionBodySchema,
   createTransactionResponseSchema,
-} from "../schemas/create-transaction.schema.ts"
+} from "../schemas/create-transaction/create-transaction.schema.ts"
 import {
-  listTransactionsQuerySchema,
-  listTransactionsResponseSchema,
-} from "../schemas/get-many-transaction.schema.ts"
-import { getTransactionByIdParamsSchema } from "../schemas/get-transaction-by-id.schema.ts"
+  getManyTransactionsQuerySchema,
+  getManyTransactionsResponseSchema,
+} from "../schemas/get-many-transaction/get-many-transaction.schema.ts"
+import { getTransactionByIdParamsSchema } from "../schemas/get-transaction-by-id/get-transaction-by-id.schema.ts"
 import { TransactionService } from "../services/transaction.service.ts"
 
 interface TransactionRoutesOptions {
@@ -58,9 +58,9 @@ export function transactionRoutes(
     schema: {
       description:
         "Retorna uma lista paginada de transações. É possível filtrar por data de criação.",
-      querystring: listTransactionsQuerySchema,
+      querystring: getManyTransactionsQuerySchema,
       response: {
-        200: listTransactionsResponseSchema,
+        200: getManyTransactionsResponseSchema,
       },
       summary: "Listar transações",
       tags: ["Transações"],

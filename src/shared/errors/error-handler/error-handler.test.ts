@@ -2,7 +2,7 @@ import Fastify from "fastify"
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
 
 import { logger } from "../../../configs/logger.ts"
-import { errorHandlerPlugin } from "../../../plugins/error-handler.ts"
+import { errorHandlerPlugin } from "../../../plugins/error-handler/error-handler.ts"
 import { ErrorCode, HttpStatus } from "../../utils/constants/index.ts"
 import { AppError } from "../app-error/app-error.ts"
 import { errorHandler } from "./error-handler.ts"

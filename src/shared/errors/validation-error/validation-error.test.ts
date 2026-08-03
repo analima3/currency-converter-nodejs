@@ -96,7 +96,7 @@ describe("errorHandler plugin integration", () => {
   })
 
   async function loadErrorHandlerPlugin() {
-    const module = await import("../../../plugins/error-handler.ts")
+    const module = await import("../../../plugins/error-handler/error-handler.ts")
     return module.errorHandlerPlugin
   }
 

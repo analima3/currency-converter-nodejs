@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import { listTransactionsQuerySchema } from "../../../modules/transaction/schemas/get-many-transaction.schema.ts"
+import { getManyTransactionsQuerySchema } from "../../../modules/transaction/schemas/get-many-transaction/get-many-transaction.schema.ts"
 import { validateDateRange } from "./date-range.validation.ts"
 
 describe("validateDateRange utility", () => {
@@ -97,7 +97,7 @@ describe("listTransactionsQuerySchema integration", () => {
       now.getTime() - 1000 * 60 * 60 * 24 * 1
     ).toISOString()
 
-    const result = listTransactionsQuerySchema.parse({
+    const result = getManyTransactionsQuerySchema.parse({
       endDate,
       startDate,
     })
@@ -117,7 +117,7 @@ describe("listTransactionsQuerySchema integration", () => {
   it("should reject queries when startDate is in the future", () => {
     const futureDate = new Date(Date.now() + 1000 * 60 * 60).toISOString()
 
-    const result = listTransactionsQuerySchema.safeParse({
+    const result = getManyTransactionsQuerySchema.safeParse({
       startDate: futureDate,
     })
 
@@ -141,7 +141,7 @@ describe("listTransactionsQuerySchema integration", () => {
       now.getTime() - 1000 * 60 * 60 * 24 * 2
     ).toISOString()
 
-    const result = listTransactionsQuerySchema.safeParse({
+    const result = getManyTransactionsQuerySchema.safeParse({
       endDate,
       startDate,
     })
