@@ -4,46 +4,70 @@ API REST desenvolvida em **Node.js** para conversão de **Real Brasileiro (BRL)*
 
 A cada conversão, a aplicação consulta a cotação atual, realiza o cálculo, persiste a transação no banco de dados e disponibiliza endpoints para consulta do histórico.
 
-## Arquitetura
+---
+
+# Arquitetura
 
 O projeto foi desenvolvido utilizando **Arquitetura em Camadas (Layered Architecture)** em conjunto com princípios da **Clean Architecture**.
 
-A responsabilidade da aplicação é separada em camadas bem definidas, tornando o código mais organizado, testável e de fácil manutenção.
+Cada camada possui uma responsabilidade específica, reduzindo o acoplamento entre os componentes da aplicação e facilitando testes, manutenção e futuras substituições de tecnologias.
 
-De forma simplificada:
+As responsabilidades estão distribuídas da seguinte forma:
 
-- **Controllers**: recebem as requisições HTTP e retornam as respostas.
-- **Services (Casos de Uso)**: concentram as regras de negócio da aplicação.
-- **Repositories**: realizam o acesso aos dados.
-- **Providers**: encapsulam integrações externas, como a Awesome API.
-- **Schemas**: validam dados de entrada e saída.
-- **Models**: representam as entidades persistidas no banco.
+- **Controllers:** recebem as requisições HTTP, validam entradas e retornam respostas.
+- **Services (Casos de Uso):** concentram toda a regra de negócio da aplicação.
+- **Repositories:** abstraem o acesso aos dados.
+- **Providers:** encapsulam integrações externas, como provedores de cotação.
+- **Schemas:** validam os dados de entrada e saída utilizando Zod.
+- **Models:** representam as entidades persistidas no banco.
 
-Essa separação reduz o acoplamento entre as camadas e facilita futuras substituições de tecnologias (banco de dados, APIs externas, etc.) sem impactar a regra de negócio.
+Essa organização permite, por exemplo, substituir o banco de dados ou o provedor de câmbio sem alterar a regra de negócio.
+
+---
 
 # Tecnologias Utilizadas
 
 | Tecnologia | Motivo da utilização |
 |------------|----------------------|
-| **Fastify** | Framework HTTP de alta performance, com suporte a plugins, tipagem e validação de schemas. |
-| **TypeScript** | Adiciona tipagem estática, reduz erros em tempo de desenvolvimento e melhora a manutenção do código. |
-| **MongoDB** | Banco NoSQL utilizado para armazenar o histórico das conversões realizadas. |
-| **Mongoose** | ODM responsável por mapear documentos do MongoDB para objetos da aplicação e facilitar consultas e validações. |
+| **Fastify** | Framework HTTP de alta performance com arquitetura baseada em plugins, tipagem e integração com schemas. |
+| **TypeScript** | Tipagem estática que aumenta a segurança e facilita a manutenção do código. |
+| **MongoDB** | Banco NoSQL utilizado para armazenar o histórico das conversões. |
+| **Mongoose** | ODM responsável pelo mapeamento entre documentos do MongoDB e objetos da aplicação. |
+| **Zod** | Validação de dados com inferência automática de tipos para o TypeScript. |
+| **Vitest** | Framework utilizado para testes automatizados, oferecendo execução rápida e excelente integração com TypeScript. |
 | **Docker** | Padroniza o ambiente de desenvolvimento e execução da aplicação. |
-| **Zod** | Validação de dados de entrada e saída com inferência automática de tipos para o TypeScript. |
-| **Jest** | Framework utilizado para testes automatizados da aplicação. |
 
+---
 
-## Como executar
+# Estrutura do Projeto
 
-### Pré-requisitos
+```text
+src
+├── configs
+├── modules
+│   └── transaction
+│       ├── controllers
+│       ├── models
+│       ├── repositories
+│       ├── routes
+│       ├── schemas
+│       └── services
+├── providers
+│   └── awesome
+├── shared
+└── server.ts
+```
 
-Antes de iniciar a aplicação, certifique-se de que possui instalado:
+---
+
+# Como executar
+
+## Pré-requisitos
 
 - Node.js 22 ou superior
 - Docker e Docker Compose
 
-### Variáveis de ambiente
+## Variáveis de ambiente
 
 Crie um arquivo `.env` na raiz do projeto utilizando o `.env.example` como referência.
 
@@ -51,18 +75,18 @@ Crie um arquivo `.env` na raiz do projeto utilizando o `.env.example` como refer
 
 ## Executando com Docker
 
-Para iniciar toda a aplicação (API e MongoDB), execute:
+Inicie toda a aplicação (API + MongoDB):
 
 ```bash
 docker compose up --build
 ```
 
-Após a inicialização, a API estará disponível em:
+Após a inicialização:
 
 - API: http://localhost:3001
 - Swagger: http://localhost:3001/docs
 
-Para encerrar os containers:
+Para finalizar:
 
 ```bash
 docker compose down
@@ -72,7 +96,7 @@ docker compose down
 
 ## Desenvolvimento local
 
-Caso prefira executar apenas o MongoDB em um container e desenvolver a API localmente, inicie somente o banco de dados:
+Inicie apenas o MongoDB:
 
 ```bash
 docker compose up -d mongodb
@@ -84,7 +108,7 @@ Instale as dependências:
 npm install
 ```
 
-Inicie a aplicação:
+Execute a aplicação:
 
 ```bash
 npm run dev
@@ -95,14 +119,31 @@ A API estará disponível em:
 - API: http://localhost:3001
 - Swagger: http://localhost:3001/docs
 
-Para parar apenas o MongoDB:
+---
+
+# Executando os testes
+
+Executar todos os testes:
 
 ```bash
-docker compose stop mongodb
+npm test
 ```
 
+Executar em modo watch:
 
-# Requisitos Funcionais
+```bash
+npm run test:watch
+```
+
+Gerar relatório de cobertura:
+
+```bash
+npm run test:coverage
+```
+
+---
+
+# Endpoints
 
 ## POST /transactions
 
@@ -139,6 +180,8 @@ Cria uma nova conversão de moeda.
 }
 ```
 
+---
+
 ## GET /transactions
 
 Retorna o histórico de conversões.
@@ -146,10 +189,10 @@ Retorna o histórico de conversões.
 ### Funcionalidades
 
 - Paginação
-- Filtro por período (`startDate` e `endDate`)
-- Ordenação das transações da mais recente para a mais antiga
+- Filtro por período
+- Ordenação da mais recente para a mais antiga
 
-### Exemplo de consulta
+### Exemplo
 
 ```text
 ?page=1
@@ -158,7 +201,7 @@ Retorna o histórico de conversões.
 &endDate=2026-01-31
 ```
 
-### Exemplo de resposta
+### Resposta
 
 ```json
 {
@@ -180,11 +223,11 @@ Retorna o histórico de conversões.
 }
 ```
 
+---
+
 ## GET /transactions/:id
 
-Retorna uma conversão específica pelo seu identificador.
-
-### Exemplo de resposta
+Retorna uma conversão pelo identificador.
 
 ```json
 {
@@ -198,11 +241,13 @@ Retorna uma conversão específica pelo seu identificador.
 }
 ```
 
+---
+
 # Integração com a Awesome API
 
-A cotação utilizada na conversão é obtida em tempo real através da Awesome API.
+A cotação é obtida em tempo real através da Awesome API.
 
-Para o cálculo é utilizado o campo **`bid`**, que representa o preço de compra da moeda.
+Para realizar a conversão é utilizado o campo **`bid`**, que representa o preço de compra da moeda.
 
 ```bash
 curl --request GET \
@@ -210,9 +255,9 @@ curl --request GET \
   --header 'x-api-key: API_KEY'
 ```
 
-# Modelo de Dados
+---
 
-A entidade persistida no banco possui a seguinte estrutura:
+# Modelo de Dados
 
 ```text
 Transaction {
@@ -226,56 +271,42 @@ Transaction {
 }
 ```
 
+---
+
 # Decisões Técnicas
 
-Durante o desenvolvimento foram tomadas algumas decisões com foco em simplicidade, organização do código e facilidade de manutenção.
+## Arquitetura em Camadas + Clean Architecture
 
-### Arquitetura em Camadas + Clean Architecture
+A aplicação foi estruturada para separar responsabilidades e manter a regra de negócio independente das tecnologias utilizadas.
 
-A aplicação foi organizada em camadas para separar responsabilidades entre as partes do sistema.
+Essa abordagem facilita testes, manutenção e futuras substituições de infraestrutura, como banco de dados ou provedores externos.
 
-A regra de negócio fica isolada das tecnologias utilizadas (HTTP, banco de dados e APIs externas), tornando a aplicação menos acoplada e facilitando alterações futuras.
+## Fastify
 
-Por exemplo, caso seja necessário trocar o MongoDB por PostgreSQL ou substituir a Awesome API por outro provedor de câmbio, a maior parte da regra de negócio permanece inalterada.
+Escolhido pela alta performance, baixo overhead e arquitetura baseada em plugins, além da excelente integração com TypeScript.
 
-### Fastify
+## MongoDB
 
-O Fastify foi escolhido por oferecer uma boa performance, baixo overhead e uma arquitetura baseada em plugins.
+Atende bem ao cenário da aplicação, que armazena apenas o histórico de conversões e realiza consultas simples com paginação, filtros e ordenação.
 
-Além disso, possui ótima integração com TypeScript e permite definir schemas de validação e serialização das respostas, reduzindo a necessidade de código manual.
+## Mongoose
 
-### MongoDB
+Facilita o acesso ao MongoDB através de modelos, validações e uma API consistente para consultas e persistência.
 
-Como a aplicação armazena apenas o histórico das conversões, sem relacionamentos complexos entre entidades, um banco orientado a documentos atende bem ao cenário.
+## Zod
 
-O MongoDB permite armazenar os registros de forma simples e oferece consultas eficientes para paginação, filtros por período e ordenação por data.
+Centraliza a validação dos dados de entrada e saída, evitando duplicação entre validação e tipagem.
 
-### Mongoose
+## Awesome API
 
-O Mongoose foi utilizado para abstrair o acesso ao MongoDB, centralizando a definição dos modelos e facilitando operações de persistência.
+Fornece gratuitamente cotações em tempo real. A aplicação utiliza o campo `bid` como taxa de conversão.
 
-Também fornece recursos como validações, tipagem e uma API mais consistente para consultas.
+## Testes Automatizados
 
-### Zod
+Os testes são implementados com **Vitest** para validar o comportamento das regras de negócio e reduzir o risco de regressões.
 
-O Zod foi utilizado para validar os dados recebidos pela API antes que cheguem às regras de negócio.
+Os casos de uso são testados isoladamente por meio de mocks dos repositórios e dos provedores externos, garantindo testes rápidos, previsíveis e independentes de infraestrutura.
 
-Com isso, a aplicação garante que apenas dados válidos sejam processados e ainda aproveita a inferência de tipos do TypeScript, evitando duplicação entre validação e tipagem.
+## Docker
 
-### Awesome API
-
-A Awesome API foi escolhida por disponibilizar gratuitamente cotações de moedas em tempo real, sendo suficiente para o escopo da aplicação.
-
-Para realizar a conversão é utilizado o campo `bid`, que representa o preço de compra da moeda, servindo como taxa de conversão adotada pelo sistema.
-
-### Testes Automatizados
-
-Os testes são implementados com Jest para validar o comportamento das regras de negócio e reduzir o risco de regressões.
-
-Como a lógica principal está desacoplada das dependências externas, é possível testar os casos de uso utilizando mocks dos repositórios e dos provedores de câmbio, tornando os testes mais rápidos e previsíveis.
-
-### Docker
-
-O Docker foi utilizado para padronizar o ambiente de execução da aplicação e eliminar diferenças entre ambientes de desenvolvimento.
-
-Dessa forma, qualquer pessoa consegue executar o projeto utilizando a mesma configuração, reduzindo problemas relacionados à instalação de dependências ou versões de ferramentas.
+Padroniza o ambiente de desenvolvimento e execução da aplicação, facilitando a configuração e reduzindo diferenças entre ambientes.
