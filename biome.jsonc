@@ -14,6 +14,9 @@
       },
       "style": {
         "useConsistentMemberAccessibility": "off"
+      },
+      "performance": {
+        "noBarrelFile": "off"
       }
     }
   }
