@@ -63,6 +63,14 @@ describe("getManyTransactionsQuerySchema", () => {
     }
   })
 
+  it("should reject unknown query keys", () => {
+    const result = getManyTransactionsQuerySchema.safeParse({
+      startDat: "2026-08-01T00:00:00.000Z",
+    })
+
+    expect(result.success).toBe(false)
+  })
+
   it("should reject when startDate is after endDate", () => {
     const result = getManyTransactionsQuerySchema.safeParse({
       endDate: "2026-08-01T00:00:00.000Z",
