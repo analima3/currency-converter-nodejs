@@ -6,7 +6,7 @@ import {
   TransactionModel,
 } from "../models/transaction.model.ts"
 
-const ONE = 1
+const NUMBER_ONE = 1
 
 export class TransactionRepository {
   async create(
@@ -24,7 +24,7 @@ export class TransactionRepository {
 
   async findMany(pagination: PaginationOptions, filters?: FilterOptions) {
     const query = this.buildQuery(filters)
-    const offset = (pagination.page - ONE) * pagination.limit
+    const offset = (pagination.page - NUMBER_ONE) * pagination.limit
 
     const documents = await TransactionModel.find(query)
       .sort({ createdAt: -1 })
