@@ -1,7 +1,6 @@
 import Fastify from "fastify"
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
-import { ErrorCode } from "../../utils/constants/error-codes.constants.ts"
-import { HttpStatus } from "../../utils/constants/http-status.constants.ts"
+import { ErrorCode, HttpStatus } from "../../utils/constants/index.ts"
 import { isValidationError, type ValidationError } from "./validation-error.ts"
 
 const originalEnv = {
