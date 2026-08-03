@@ -1,9 +1,11 @@
 import { z } from "zod"
-import { currencyCodeEnumToArray } from "../../../shared/utils/constants/currency-code.constants.ts"
-import { transactionSchema } from "./transaction.schema.ts"
+import { currencyCodeEnumToArray } from "../../../../shared/utils/constants/index.ts"
+import { transactionSchema } from "../transaction/transaction.schema.ts"
+
+const AMOUNT_MESSAGE = "O valor deve um número maior que zero."
 
 export const createTransactionBodySchema = z.object({
-  amount: z.number().positive(),
+  amount: z.number(AMOUNT_MESSAGE).positive(AMOUNT_MESSAGE),
   from: z.enum(currencyCodeEnumToArray, {
     error: `Moeda inválida. Valores aceitos: ${currencyCodeEnumToArray.join(", ")}`,
   }),

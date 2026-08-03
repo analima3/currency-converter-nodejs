@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { CurrencyCode } from "../../../shared/utils/constants/currency-code.constants.ts"
+import { CurrencyCode } from "../../../../shared/utils/constants/currency-code.constant.ts"
 
 export const transactionSchema = z.object({
   amount: z.number(),

@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-import { transactionSchema } from "./transaction.schema.ts"
+import { transactionSchema } from "../transaction/transaction.schema.ts"
 
 const ID_REGEX = /^[0-9a-fA-F]{24}$/
 

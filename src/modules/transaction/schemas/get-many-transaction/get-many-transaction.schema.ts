@@ -1,10 +1,10 @@
 import { z } from "zod"
-import { validateDateRange } from "../../../shared/utils/validations/date-range.validation.ts"
-import { transactionSchema } from "./transaction.schema.ts"
+import { validateDateRange } from "../../../../shared/utils/validations/date-range.validation.ts"
+import { transactionSchema } from "../transaction/transaction.schema.ts"
 
 const LIMIT_RULE_MESSAGE = "O limite deve ser um número entre 1 e 1000."
 
-export const listTransactionsQuerySchema = z
+export const getManyTransactionsQuerySchema = z
   .object({
     endDate: z.iso
       .datetime({ message: "A data de fim é inválida.", offset: true })
@@ -32,7 +32,7 @@ export const listTransactionsQuerySchema = z
     }
   })
 
-export const listTransactionsResponseSchema = z.object({
+export const getManyTransactionsResponseSchema = z.object({
   data: z.array(transactionSchema),
   pagination: z.object({
     limit: z.number(),
@@ -42,8 +42,10 @@ export const listTransactionsResponseSchema = z.object({
   }),
 })
 
-export type ListTransactionsQuery = z.infer<typeof listTransactionsQuerySchema>
+export type GetManyTransactionsQuery = z.infer<
+  typeof getManyTransactionsQuerySchema
+>
 
-export type ListTransactionsResponse = z.infer<
-  typeof listTransactionsResponseSchema
+export type GetManyTransactionsResponse = z.infer<
+  typeof getManyTransactionsResponseSchema
 >
