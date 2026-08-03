@@ -1,7 +1,5 @@
 import { env } from "../../configs/env.ts"
-import {
-  statusErrorFactory,
-} from "../../shared/errors/exceptions/index.ts"
+import { statusErrorFactory } from "../../shared/errors/exceptions/index.ts"
 import type {
   ExchangeRateProvider,
   GetExchangeRateParams,
